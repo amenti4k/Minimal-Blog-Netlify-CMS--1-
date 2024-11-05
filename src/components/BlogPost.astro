@@ -1,0 +1,53 @@
+---
+interface Props {
+  title: string;
+  date: string;
+  content: string;
+}
+
+const { title, date, content } = Astro.props;
+---
+
+<article class="blog-post">
+  <div class="post-header" onclick="this.parentElement.classList.toggle('expanded')">
+    <h2>{title}</h2>
+    <time>{new Date(date).toLocaleDateString()}</time>
+  </div>
+  <div class="post-content" set:html={content} />
+</article>
+
+<style>
+  .blog-post {
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    padding: 1rem;
+  }
+  
+  .post-header {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .post-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  
+  .post-content {
+    display: none;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+  }
+  
+  .blog-post.expanded .post-content {
+    display: block;
+  }
+  
+  time {
+    color: #666;
+    font-size: 0.9rem;
+  }
+</style>
